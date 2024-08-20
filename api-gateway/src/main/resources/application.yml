@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      mvc:
+        routes:
+          - id: employee-service
+            uri: lb://employee-service
+            predicates:
+             - Path=/employee/**
+          - id: department-service
+            uri: lb://department-service
+            predicates:
+             - Path=/department/**
+  config:
+    import: "optional:configserver:http://localhost:8181"
+
+
+server:
+  port: 8080
